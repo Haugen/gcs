@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 	// Load Grunt plugins.
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	// Set the default task to "watch", so running "grunt" will be equal to
 	// running "grunt watch"
