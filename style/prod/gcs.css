@@ -1,8 +1,3 @@
-body h1 {
-  font-size: 40px; }
-
-/*# sourceMappingURL=second.css.map */
-
 body {
   background: #efefef;
   font-family: monospace; }
@@ -10,3 +5,8 @@ body {
     color: #000; }
 
 /*# sourceMappingURL=style.css.map */
+
+body h1 {
+  font-size: 40px; }
+
+/*# sourceMappingURL=second.css.map */

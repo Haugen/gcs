@@ -6,11 +6,35 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		// Configuration for Sass plugin.
 		sass: {
-			dist: {
+			manual_mapping_short: {
+			// Because these src-dest file mappings are manually specified, every
+			// time a new file is added or removed, the Gruntfile has to be updated.
 				files: {
 					'style/style.css' : 'sass/style.scss',
 					'style/second.css' : 'sass/second.scss'
 				}
+			},
+			manual_mapping: {
+			// A longer version with 'src' and 'dest' keys specified.
+	      files: [
+	        { src: 'sass/style.scss', dest: 'style/style.css' },
+	        { src: 'sass/second.scss', dest: 'style/second.css' },
+	      ],
+	    },
+			dynamic_mapping: {
+      // Grunt will search for "**/*.js" under "lib/" when the "uglify" task
+      // runs and build the appropriate src-dest file mappings then, so you
+      // don't need to update the Gruntfile when files are added or removed.
+	      files: [
+	        {
+	          expand: true,       // Enable dynamic expansion.
+	          cwd: 'sass/',       // Src matches are relative to this path.
+	          src: ['**/*.scss'], // Actual pattern(s) to match.
+	          dest: 'style/',     // Destination path prefix.
+	          ext: '.css',        // Dest filepaths will have this extension.
+	          extDot: 'first'     // Extensions in filenames begin after the first dot
+	        },
+	      ],
 			}
 		},
 		// The Concat plugin concatinates files into one.
@@ -20,9 +44,14 @@ module.exports = function(grunt) {
 		    separator: '\n'
 		  },
 		  dist: {
-		    // The files to concatenate. All css files in the styles folder.
-				// They will be concatinated in alphabetic order if * is used.
-		    src: ['style/*.css'],
+				// The files to concatenate. All css files in the styles folder.
+				// They will be concatinated in alphabetic order if * is used. For a
+				// specific order an array can be used, like below. Here style.css
+				// comes first, followed by all files ending with .css.
+		    src: [
+					'style/style.css',
+					'style/second.css'
+				],
 		    // The location of the resulting concatinated css file. Using pkg.name
 				// here as an example. Refers to the "name" property in package.json.
 		    dest: 'style/prod/<%= pkg.name %>.css'
@@ -59,5 +88,5 @@ module.exports = function(grunt) {
 	// A demo custom task. "sass" generates css files from scss files, then
 	// "concat" concatinates all files into one, and lastly "cssmin" minifies
 	// that newly generated concatinated file.
-	grunt.registerTask('generate', ['sass', 'concat', 'cssmin']);
+	grunt.registerTask('generate', ['sass:manual_mapping', 'concat', 'cssmin']);
 }
