@@ -28,6 +28,15 @@ module.exports = function(grunt) {
 		    dest: 'style/prod/<%= pkg.name %>.css'
 		  }
 		},
+		// Plugin for minifying css files.
+		cssmin: {
+		  target: {
+				// Set the file generated from concat as target source.
+		    src: '<%= concat.dist.dest %>',
+				// The folder destination for our minified css file.
+				dest: 'style/prod/<%= pkg.name %>.min.css'
+		  }
+		},
 		// The Watch plugin Runs a task whenever files are added, changed or
 		// deleted.
 		watch: {
