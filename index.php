@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Grunt, Compass and SASS</title>
-  <link rel="stylesheet" type="text/css" href="style/prod/gcs.css">
+  <link rel="stylesheet" type="text/css" href="style/prod/gcs.min.css">
 </head>
 <body>
 

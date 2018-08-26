@@ -21,6 +21,7 @@ module.exports = function(grunt) {
 		  },
 		  dist: {
 		    // The files to concatenate. All css files in the styles folder.
+				// They will be concatinated in alphabetic order if * is used.
 		    src: ['style/*.css'],
 		    // The location of the resulting concatinated css file. Using pkg.name
 				// here as an example. Refers to the "name" property in package.json.
