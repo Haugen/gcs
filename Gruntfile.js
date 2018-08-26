@@ -56,4 +56,8 @@ module.exports = function(grunt) {
 	// Set the default task to "watch", so running "grunt" will be equal to
 	// running "grunt watch"
 	grunt.registerTask('default',['watch']);
+	// A demo custom task. "sass" generates css files from scss files, then
+	// "concat" concatinates all files into one, and lastly "cssmin" minifies
+	// that newly generated concatinated file.
+	grunt.registerTask('generate', ['sass', 'concat', 'cssmin']);
 }
