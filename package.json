@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Grunt test",
   "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
     "grunt": "~1.0.3",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-cssmin": "^2.2.1",

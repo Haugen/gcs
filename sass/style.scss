@@ -1,8 +1,5 @@
-body {
-  background: #fff;
-  font-family: monospace;
 
-  h1 {
-    color: #000;
-  }
-}
+$brand-primary: red;
+$font-size-base: 16px;
+
+@import '../bootstrap/assets/stylesheets/bootstrap';
