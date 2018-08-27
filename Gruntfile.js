@@ -1,3 +1,6 @@
+const sass = require('dart-sass');
+require('load-grunt-tasks')(grunt);
+
 module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
@@ -5,6 +8,11 @@ module.exports = function(grunt) {
     // refer to the values of properties within our package.json file.
     pkg: grunt.file.readJSON('package.json'),
     // Configuration for Sass plugin.
+
+    /**
+     * grunt-contrib-sass commented out in favor for grunt-sass, which should
+     * work better with compiling sass for Bootstrap 4.
+     *
     sass: {
       manual_mapping_short: {
       // Because these src-dest file mappings are manually specified, every
@@ -22,7 +30,7 @@ module.exports = function(grunt) {
         ],
       },
       dynamic_mapping: {
-      // Grunt will search for "**/*.scss" under "sass/" when the
+      // Grunt will search for "**\/*.scss" under "sass/" when the
       // "dynamic_mapping" task runs and build the appropriate src-dest file
       // mappings then, so you don't need to update the Gruntfile when files
       // are added or removed.
@@ -30,7 +38,7 @@ module.exports = function(grunt) {
           {
             expand: true,       // Enable dynamic expansion.
             cwd: 'sass/',       // Src matches are relative to this path.
-            src: ['**/*.scss'], // Actual pattern(s) to match.
+            src: ['**\/*.scss'], // Actual pattern(s) to match.
             dest: 'style/',     // Destination path prefix.
             ext: '.css',        // Dest filepaths will have this extension.
             extDot: 'first'     // Extensions in filenames begin after the first dot
@@ -38,6 +46,8 @@ module.exports = function(grunt) {
         ],
       }
     },
+    */
+
     // The Concat plugin concatinates files into one.
     concat: {
       options: {
