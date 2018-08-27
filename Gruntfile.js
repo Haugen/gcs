@@ -1,5 +1,6 @@
-const sass = require('dart-sass');
-require('load-grunt-tasks')(grunt);
+const sass = require('node-sass');
+//require('load-grunt-tasks')(grunt);
+console.log(sass.info);
 
 module.exports = function(grunt) {
   // Project configuration.
@@ -8,7 +9,17 @@ module.exports = function(grunt) {
     // refer to the values of properties within our package.json file.
     pkg: grunt.file.readJSON('package.json'),
     // Configuration for Sass plugin.
-
+    sass: {
+      options: {
+        implementation: sass,
+        sourceMap: true
+      },
+      dist: {
+        files: {
+          'style/style.css': 'sass/style.scss'
+        }
+      }
+    },
     /**
      * grunt-contrib-sass commented out in favor for grunt-sass, which should
      * work better with compiling sass for Bootstrap 4.
@@ -89,7 +100,7 @@ module.exports = function(grunt) {
   });
 
   // Load Grunt plugins.
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -99,5 +110,5 @@ module.exports = function(grunt) {
   // A demo custom task. "sass" generates css files from scss files, then
   // "concat" concatinates all files into one, and lastly "cssmin" minifies
   // that newly generated concatinated file.
-  grunt.registerTask('generate', ['sass:dynamic_mapping', 'concat', 'cssmin']);
+  grunt.registerTask('generate', ['sass', 'concat', 'cssmin']);
 }
