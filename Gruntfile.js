@@ -1,6 +1,5 @@
 const sass = require('node-sass');
-//require('load-grunt-tasks')(grunt);
-console.log(sass.info);
+//console.log(sass.info); // See version of libsass and node-sass.
 
 module.exports = function(grunt) {
   // Project configuration.
@@ -8,29 +7,16 @@ module.exports = function(grunt) {
     // Project metadata is imported into the Grunt config. This allows us to
     // refer to the values of properties within our package.json file.
     pkg: grunt.file.readJSON('package.json'),
+
     // Configuration for Sass plugin.
     sass: {
       options: {
         implementation: sass,
         sourceMap: true
       },
-      dist: {
+      manual_mapping_short: {
         files: {
           'style/style.css': 'sass/style.scss'
-        }
-      }
-    },
-    /**
-     * grunt-contrib-sass commented out in favor for grunt-sass, which should
-     * work better with compiling sass for Bootstrap 4.
-     *
-    sass: {
-      manual_mapping_short: {
-      // Because these src-dest file mappings are manually specified, every
-      // time a new file is added or removed, the Gruntfile has to be updated.
-        files: {
-          'style/style.css' : 'sass/style.scss',
-          'style/second.css' : 'sass/second.scss'
         }
       },
       manual_mapping: {
@@ -49,15 +35,28 @@ module.exports = function(grunt) {
           {
             expand: true,       // Enable dynamic expansion.
             cwd: 'sass/',       // Src matches are relative to this path.
-            src: ['**\/*.scss'], // Actual pattern(s) to match.
+            src: ['**/*.scss'], // Actual pattern(s) to match.
             dest: 'style/',     // Destination path prefix.
             ext: '.css',        // Dest filepaths will have this extension.
             extDot: 'first'     // Extensions in filenames begin after the first dot
           },
         ],
+      },
+      album: {
+      // Specifically generate files in the album folder. This current sollution
+      // is temporary and should be replaced with a scalable generic one.
+        files: [
+          {
+            expand: true,
+            cwd: 'album/scss/',
+            src: ['*.scss'],
+            dest: 'album/css/',
+            ext: '.css',
+            extDot: 'first'
+          },
+        ],
       }
     },
-    */
 
     // The Concat plugin concatinates files into one.
     concat: {
@@ -79,6 +78,7 @@ module.exports = function(grunt) {
         dest: 'style/prod/<%= pkg.name %>.css'
       }
     },
+
     // Plugin for minifying css files.
     cssmin: {
       target: {
@@ -95,6 +95,11 @@ module.exports = function(grunt) {
         files: '**/*.scss',
         // The task to run when prompted, in this case "sass".
         tasks: ['sass:dynamic_mapping']
+      },
+      album: {
+        files: '**/*.scss',
+        // Runt the sass command for generating css files in the album folder.
+        tasks: ['sass:album']
       }
     }
   });
@@ -107,6 +112,8 @@ module.exports = function(grunt) {
   // Set the default task to "watch", so running "grunt" will be equal to
   // running "grunt watch"
   grunt.registerTask('default',['watch']);
+  // Watch for changes in the album folder project.
+  grunt.registerTask('album',['watch:album']);
   // A demo custom task. "sass" generates css files from scss files, then
   // "concat" concatinates all files into one, and lastly "cssmin" minifies
   // that newly generated concatinated file.
