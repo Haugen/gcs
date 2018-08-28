@@ -1,2 +1,9 @@
 
+$info:          #833ab4 !default;
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
+
+
+.btn-rounded {
+  border-radius: 25px;
+}
